@@ -210,6 +210,7 @@ declare module PIXI.heaven {
         indices: Uint16Array;
         animState: AnimationState;
         blendAddUnity: boolean;
+        private _roundPixels;
         constructor(texture: PIXI.Texture);
         get _tintRGB(): number;
         set _tintRGB(value: number);

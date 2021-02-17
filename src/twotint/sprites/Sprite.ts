@@ -15,9 +15,13 @@ namespace pixi_heaven {
 		// modified by renderer
 		blendAddUnity = false;
 
+
+    private _roundPixels: boolean;
+
 		constructor(texture: PIXI.Texture) {
 			super(texture);
 			this.pluginName = 'batchHeaven';
+			this._roundPixels = PIXI.settings.ROUND_PIXELS;
 			if (this.texture.valid) this._onTextureUpdate();
 		}
 
@@ -175,6 +179,17 @@ namespace pixi_heaven {
 				// xy
 				vertexData[6] = (a * w1) + (c * h0) + tx;
 				vertexData[7] = (d * h0) + (b * w1) + ty;
+
+
+				if (this._roundPixels)
+        {
+					const resolution = PIXI.settings.RESOLUTION;
+
+					for (let i = 0; i < vertexData.length; ++i)
+					{
+							vertexData[i] = Math.round((vertexData[i] * resolution | 0) / resolution);
+					}
+        }
 			}
 		}
 

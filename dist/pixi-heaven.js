@@ -1115,6 +1115,7 @@ var pixi_heaven;
             _this.animState = null;
             _this.blendAddUnity = false;
             _this.pluginName = 'batchHeaven';
+            _this._roundPixels = PIXI.settings.ROUND_PIXELS;
             if (_this.texture.valid)
                 _this._onTextureUpdate();
             return _this;
@@ -1243,6 +1244,12 @@ var pixi_heaven;
                 vertexData[5] = (d * h0) + (b * w0) + ty;
                 vertexData[6] = (a * w1) + (c * h0) + tx;
                 vertexData[7] = (d * h0) + (b * w1) + ty;
+                if (this._roundPixels) {
+                    var resolution = PIXI.settings.RESOLUTION;
+                    for (var i = 0; i < vertexData.length; ++i) {
+                        vertexData[i] = Math.round((vertexData[i] * resolution | 0) / resolution);
+                    }
+                }
             }
         };
         Sprite.prototype.calculateMaskVertices = function () {
